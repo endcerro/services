@@ -1,24 +1,67 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    init.sh                                            :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hpottier <hpottier@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/03/10 23:42:48 by hpottier          #+#    #+#              #
-#    Updated: 2020/03/11 02:48:56 by hpottier         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
-brew install kubectl
-brew install minikube
 
-minikube config set vm-driver virtualbox
-minikube delete
+sudo apt-get update
+sudo apt-get upgrade -y
+#snap install kubectl
+#snap install minikube
+service nginx stop
+sudo chown user42:user42 /var/run/docker.sock
 
-docker-machine create --driver virtualbox default
-docker-machine start
+minikube start --driver=docker
+
+
+
+#UP UNTILL HERE, WE GUCCI ADND KUBE RUNNING
+
+#https://127.0.0.1:32769/ IS ACCESSIBLE
+
+
+
+#METRICS PANNEL
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.6/components.yaml
+kubectl get deployment metrics-server -n kube-system
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+
+#CREATE ADMIN
+kubectl apply -f admin_account.yaml
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}') > log.txt
+
+#WE CAN NOW ACCES THE DASHBOARD AT 
+kubectl proxy
+#http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+
+
+
+
+
+#DEPLOY CONTROL PANNEL
+#kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
+
+#kubectl proxy &
+
+#http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+
+#IDENTIFICATION PART
+
+#kubectl config --kubeconfig=config-demo set-credentials developer --client-certificate=fake-cert-file --client-key=fake-key-seefile
+#kubectl config --kubeconfig=config-demo set-credentials experimenter --username=exp --password=some-password
+
+
+
+
+
+
+#minikube config set vm-driver virtualbox
+#minikube delete
+
+#docker-machine create --driver=docker
+#docker-machine start
 
 #ln -s /sgoinfre/goinfre/Perso/edal--ce/minikube .minikube
 #docker stop $(docker ps -aq)
-#docker rm $(docker ps -aq)
+#docker rm $(docker ps -aq)minikube start --driver=docker
+

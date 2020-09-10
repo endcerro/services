@@ -2,19 +2,10 @@
 
 sudo apt-get update
 sudo apt-get upgrade -y
-#snap install kubectl
-#snap install minikube
 service nginx stop
 sudo chown user42:user42 /var/run/docker.sock
 
 minikube start --driver=docker
-
-
-
-#UP UNTILL HERE, WE GUCCI ADND KUBE RUNNING
-
-#https://127.0.0.1:32769/ IS ACCESSIBLE
-
 
 
 #METRICS PANNEL

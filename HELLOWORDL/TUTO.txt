@@ -1,0 +1,23 @@
+1 - Create Deployment : 
+
+kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+
+Confirm with :	kubectl get deployments
+				kubectl get pods
+
+2 - Create the service that goes with it
+
+kubectl expose deployment hello-node --type=LoadBalancer --port=8080
+
+hello-node is the name we get when get deployments
+
+confirm with : kubectl get services
+
+minikube service hello-node
+
+
+
+3- ENd it 
+
+kubectl delete service hello-node
+kubectl delete deployment hello-node

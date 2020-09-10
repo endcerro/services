@@ -16,11 +16,38 @@
 # minikube start --vm-driver=virtualbox
 
 #Building containers
+if [ $# -eq 1 ]
+  then
+    echo "RM TIME"
+    kubectl delete -n default deployment nginx-deployment
+    kubectl delete -n default service nginx-deployment
+fi
 
 #DEPLOY NGINX
+eval $(minikube docker-env)
 docker build -t mynginx ./Sources/Images/nginx/.
-kubectl apply -f ./Sources/nginx/nginx.yaml
-kubectl get pods -l run=mynginx -o wide
+#kubectl apply -f ./Sources/Images/nginx/nginx.yaml
+#kubectl get pods -l run=mynginx -o wide
+
+#POD IS RUNNING AT THIS POINT
+
+#CREATE DEPLOYMENT
+
+eval $(minikube docker-env)
+
+kubectl apply -f ./Sources/Images/nginx/deployment.yaml
+#CREQTE DEPLOYMENT
+kubectl expose deployment nginx-deployment --type=LoadBalancer --port=80
+#SEE IT
+minikube service nginx-deployment
+
+
+#CREATE SERVICE AND EXPOSE DEPLOYMENT
+#kubectl expose deployment nginx-deployment --type=NodePort --name=nginx-service
+
+#kubectl expose deployment mynginx --port=80 --type=LoadBalancer
+#kubectl expose deployment/mynginx --type="NodePort" --port 8080
+
 
 #kubectl expose deployment/mynginx
 

@@ -39,7 +39,7 @@ kubectl apply -f ./Sources/Images/nginx/deployment.yaml
 #CREQTE DEPLOYMENT
 kubectl expose deployment nginx-deployment --type=LoadBalancer --port=80
 #SEE IT
-minikube service nginx-deployment
+#minikube service nginx-deployment
 
 
 #CREATE SERVICE AND EXPOSE DEPLOYMENT

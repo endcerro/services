@@ -15,6 +15,7 @@
 # Starts minikube
 # minikube start --vm-driver=virtualbox
 
+eval $(minikube docker-env)
 #Building containers
 if [ $# -eq 1 ]
   then
@@ -24,7 +25,7 @@ if [ $# -eq 1 ]
 fi
 
 #DEPLOY NGINX
-eval $(minikube docker-env)
+
 docker build -t mynginx ./Sources/Images/nginx/.
 #kubectl apply -f ./Sources/Images/nginx/nginx.yaml
 #kubectl get pods -l run=mynginx -o wide
@@ -33,11 +34,8 @@ docker build -t mynginx ./Sources/Images/nginx/.
 
 #CREATE DEPLOYMENT
 
-eval $(minikube docker-env)
 
-kubectl apply -f ./Sources/Images/nginx/deployment.yaml
-#CREQTE DEPLOYMENT
-kubectl expose deployment nginx-deployment --type=LoadBalancer --port=80
+kubectl apply -f ./Sources/Images/nginx/service.yaml
 #SEE IT
 #minikube service nginx-deployment
 

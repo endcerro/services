@@ -1,0 +1,5 @@
+➜  services git:(master) ✗ kubectl create deployment sample-deployment --image=nginx
+deployment.apps/sample-deployment created
+
+
+

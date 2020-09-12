@@ -10,8 +10,8 @@ spec:
   ports:
     - protocol: TCP
       name: sql
-      port: 667
-      targetPort: 667
+      port: 3306
+      targetPort: 3306
   
 ---
 
@@ -35,5 +35,5 @@ spec:
         image: mymysql
         imagePullPolicy: Never
         ports:
-        - containerPort: 667
+        - containerPort: 3306
           name: sql

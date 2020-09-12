@@ -13,10 +13,10 @@ COPY ./init.sh .
 RUN mkdir -p /run/mysqld
 RUN chmod 777 ./init.sh 
 
-EXPOSE 667
+EXPOSE 3306
+EXPOSE 22
 
 CMD ["./init.sh"]
-
 
 #docker build -t testnginx .
 #docker run --rm -ti -p 80:80 -p 443:443 testnginx

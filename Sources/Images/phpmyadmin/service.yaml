@@ -7,15 +7,12 @@ spec:
   type: LoadBalancer
   selector:
     app: myphpmyadmin
+    tier: mysql
   ports:
     - protocol: TCP
       name: http
       port: 5000
       targetPort: 5000
-    - protocol: TCP
-      name: ssh
-      port: 23
-      targetPort: 22
   
 ---
 
@@ -27,11 +24,13 @@ spec:
   selector:
     matchLabels:
       app: myphpmyadmin
+      tier: mysql
   replicas: 1
   template:
     metadata:
       labels:
         app: myphpmyadmin
+        tier: mysql
     spec:
       containers:
       - name: myphpmyadmin
@@ -40,5 +39,3 @@ spec:
         ports:
         - containerPort: 5000
           name: http
-        - containerPort: 22
-          name: ssh

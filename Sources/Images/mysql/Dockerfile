@@ -1,20 +1,20 @@
 FROM alpine
 RUN apk update
 
-RUN apk add openssh
-RUN apk add mysql mysql-client
+RUN apk add mariadb mariadb-client
 
 RUN apk add	vim
 RUN apk add	bash
 
 COPY ./user.sql .
 COPY ./init.sh .
+COPY mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
+
 
 RUN mkdir -p /run/mysqld
 RUN chmod 777 ./init.sh 
 
 EXPOSE 3306
-EXPOSE 22
 
 CMD ["./init.sh"]
 

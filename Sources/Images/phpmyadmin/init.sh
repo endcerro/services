@@ -1,10 +1,5 @@
 #! /bin/sh
 
-ssh-keygen -A
-adduser -D enzo
-echo "enzo:enzo" | chpasswd
-/usr/sbin/sshd
-
 #nginx -g "daemon off;"
 php -S 0.0.0.0:5000 -t /www/phpMyAdmin-5.0.2-all-languages
 #bash

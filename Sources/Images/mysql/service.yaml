@@ -1,18 +1,16 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: mysql
-  namespace: default
 spec:
   type: ClusterIP
-  selector:
-    app: mysql
   ports:
-    - protocol: TCP
-      name: sql
-      port: 3306
-      targetPort: 3306
-  
+  - name: mysql
+    port: 3306
+    targetPort: 3306
+    protocol: TCP
+  selector:
+    app: mysql-app
 ---
 
 apiVersion: v1
@@ -29,7 +27,6 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/mnt/data"
-
 ---
 
 apiVersion: v1
@@ -42,35 +39,32 @@ spec:
   resources:
     requests:
       storage: 2Gi
-
 ---
-
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-deployment
+  labels:
+    app: mysql-app
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: mysql
-  replicas: 1
+      app: mysql-app
   template:
     metadata:
       labels:
-        app: mysql
+        app: mysql-app
     spec:
       containers:
-      - name: mysql
-        image: mymysql
-        volumeMounts:
-          - mountPath: "/var/lib/mysql"
-            subPath: "mysql"
-            name: mysql-data
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 3306
-          name: sql
+        - name: mysql
+          image: mysql
+          volumeMounts:
+            - mountPath: "/var/lib/mysql"
+              subPath: "mysql"
+              name: mysql-data
+          imagePullPolicy: Never
       volumes:
       - name: mysql-data
         persistentVolumeClaim:

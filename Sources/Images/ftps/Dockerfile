@@ -16,5 +16,6 @@ RUN chmod 777 ./init.sh
 #RUN passwd mandar
 
 
-EXPOSE 21
+EXPOSE 21 21000-21010
+
 CMD ["./init.sh"]

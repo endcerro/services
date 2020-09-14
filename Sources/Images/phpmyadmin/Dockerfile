@@ -18,6 +18,8 @@ COPY ./phpMyAdmin-5.0.2-all-languages.zip .
 
 RUN unzip phpMyAdmin-5.0.2-all-languages.zip -d /www
 
+COPY ./config.inc.php /www/phpMyAdmin-5.0.2-all-languages/config.inc.php
+
 RUN chmod 777 ./init.sh 
 
 #RUN mkdir -p /run/nginx

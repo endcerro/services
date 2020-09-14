@@ -20,7 +20,7 @@ if [ $# -eq 1 ]
     kubectl delete -f ./Sources/Images/mysql/service.yaml
     kubectl delete -f ./Sources/Images/phpmyadmin/service.yaml
     kubectl delete -f ./Sources/Images/wordpress/service.yaml
-    kubectl delete -f ./Sources/Images/myftps/service.yaml
+    kubectl delete -f ./Sources/Images/ftps/service.yaml
 fi
 
 #BUILD IMAGES

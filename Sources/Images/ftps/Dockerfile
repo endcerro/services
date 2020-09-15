@@ -4,9 +4,10 @@ RUN apk add vsftpd
 RUN apk add openssl
 RUN apk add bash
 
-COPY ./vsftpd.conf /etc/vsftpd/vsftpd.conf
+COPY ./vsftpd.conf /etc/vsftpd.conf
 
-COPY ./vsftpd.pem /.
+RUN mkdir /etc/certs
+COPY ./vsftpd.pem /etc/certs/vsftpd.pem
 
 COPY ./init.sh .
 RUN chmod 777 ./init.sh 

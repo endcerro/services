@@ -14,7 +14,7 @@ PASSWORD=password
 adduser -D $USER
 echo "$USER:$PASSWORD" | chpasswd
 mkdir /home/$USER/ftp
-chown nobody:nogroup /home/$USER/ftp
+chown $USER:$USER /home/$USER/ftp
 chmod a-w /home/$USER/ftp
 
 mkdir /home/$USER/ftp/test
@@ -32,5 +32,6 @@ mkdir /var/run/vsftpd/empty
 
 #NEED TO CREATE SOME FOLDER AND WE ARE GOOD TO GO
 #vsftpd
-vsftpd -opasv_min_port=21000 -opasv_max_port=21000
+#vsftpd -opasv_min_port=21000 -opasv_max_port=21000
 #bash
+/usr/sbin/vsftpd /etc/vsftpd.conf

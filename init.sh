@@ -1,6 +1,6 @@
 sudo apt-get update
 sudo apt-get upgrade -y
-service nginx stop
+#service nginx stop
 sudo chown user42:user42 /var/run/docker.sock
 
 minikube start --driver=docker

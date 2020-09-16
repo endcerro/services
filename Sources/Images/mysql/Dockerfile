@@ -7,6 +7,7 @@ RUN apk add	vim
 RUN apk add	bash
 
 COPY ./user.sql .
+COPY ./wordpress.sql .
 COPY ./init.sh .
 COPY mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 

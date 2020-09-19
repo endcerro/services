@@ -20,6 +20,34 @@ spec:
   
 ---
 
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ftps-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ftps-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
@@ -37,6 +65,10 @@ spec:
       containers:
       - name: myftps
         image: myftps
+        volumeMounts:
+            - mountPath: "/home/"
+              subPath: "ftps"
+              name: ftps-data
         imagePullPolicy: Never
         ports:
         - containerPort: 20
@@ -47,4 +79,7 @@ spec:
           hostPort: 20010
         - containerPort: 20011
           hostPort: 20011
-        
+      volumes:
+      - name: ftps-data
+        persistentVolumeClaim:
+          claimName: ftps-volume  

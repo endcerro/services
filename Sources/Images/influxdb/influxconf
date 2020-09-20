@@ -1,0 +1,2 @@
+create database telegraf;
+create user username with password 'password';

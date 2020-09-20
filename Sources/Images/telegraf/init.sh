@@ -6,7 +6,7 @@
 
 # chmod -R 777 /
 export TELEGRAF_CONFIG_PATH=/etc/telegraf.conf
-bash
+#bash
 
-#telegraf
+telegraf
 #grafana-server -homepath usr/share/grafana

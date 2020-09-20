@@ -9,6 +9,7 @@ if [ $# -eq 1 ]
 		kubectl delete -f ./Sources/Images/ftps/service.yaml
 		kubectl delete -f ./Sources/Images/influxdb/service.yaml
 		kubectl delete -f ./Sources/Images/grafana/service.yaml
+		kubectl delete -f ./Sources/Images/telegraf/service.yaml
 fi
 
 #BUILD IMAGES
@@ -20,6 +21,7 @@ docker build -t mywordpress ./Sources/Images/wordpress/.
 docker build -t myftps ./Sources/Images/ftps/.
 docker build -t myinflux ./Sources/Images/influxdb/.
 docker build -t mygrafana ./Sources/Images/grafana/.
+docker build -t mytelegraf ./Sources/Images/telegraf/.
 eval $(minikube docker-env)
 #DEPLOY SERVICE
 kubectl apply -f ./Sources/Images/nginx/service.yaml
@@ -29,3 +31,4 @@ kubectl apply -f ./Sources/Images/wordpress/service.yaml
 kubectl apply -f ./Sources/Images/ftps/service.yaml
 kubectl apply -f ./Sources/Images/influxdb/service.yaml
 kubectl apply -f ./Sources/Images/grafana/service.yaml
+kubectl apply -f ./Sources/Images/telegraf/service.yaml

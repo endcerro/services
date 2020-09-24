@@ -24,7 +24,6 @@ RUN chmod 777 ./init.sh
 #RUN echo "Hello world" > /var/www/index.html
 #RUN chmod -R 777 /var/log/nginx
 
-EXPOSE 5000
-EXPOSE 22
+EXPOSE 5050
 
 CMD ["./init.sh"]

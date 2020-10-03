@@ -12,11 +12,6 @@ COPY ./vsftpd.pem /vsftpd.pem
 COPY ./init.sh .
 RUN chmod 777 ./init.sh 
 
-#RUN useradd username
-
-#RUN passwd mandar
-
-
 EXPOSE	20
 EXPOSE	21
 EXPOSE  20010

@@ -1,5 +1,4 @@
 #! /bin/sh
-
 ssh-keygen -A
 adduser -D enzo
 echo "enzo:enzo" | chpasswd

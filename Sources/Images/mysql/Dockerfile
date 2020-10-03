@@ -2,7 +2,6 @@ FROM alpine
 RUN apk update
 
 RUN apk add mariadb mariadb-client
-
 RUN apk add	vim
 RUN apk add	bash
 

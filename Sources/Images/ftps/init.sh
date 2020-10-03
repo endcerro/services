@@ -34,4 +34,6 @@ mkdir /var/run/vsftpd/empty
 #vsftpd
 #vsftpd -opasv_min_port=21000 -opasv_max_port=21000
 #bash
+
+#bash
 /usr/sbin/vsftpd /etc/vsftpd.conf

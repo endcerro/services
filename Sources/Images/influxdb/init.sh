@@ -1,9 +1,2 @@
-#! /bin/sh
+#!/usr/bin/env bash
 influxd run
-#influx < influxconf
-#influxd
-#pkill influxd
-#influxd run
-#bash
-
-

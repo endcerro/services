@@ -1,9 +1,10 @@
 #! /bin/bash
 
-read var
+
 
 echo "Please type VM or 42"
 
+read var
 
 if [ "$var" = "VM" ] || [ "$var" = "vm" ]
   then
@@ -15,7 +16,8 @@ elif [ "$var" = "42" ]
     bash ./macinit.sh
 fi
 
+./setup.sh
 #minikube ip >> Sources/metallb/metallbR.yaml
 
-kubectl apply -f ./Sources/metallb/metallb.yaml
-bash ./setup.sh
+#kubectl apply -f ./Sources/metallb/metallb.yaml
+#bash ./setup.sh

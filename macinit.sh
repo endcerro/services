@@ -13,4 +13,5 @@ minikube start --vm-driver=virtualbox
 
 minikube addons enable metallb
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
-kubectl apply -f ./Sources/metallb/metallb.yaml
+./metalip.sh
+kubectl apply -f ./Sources/Services/metallb.yaml

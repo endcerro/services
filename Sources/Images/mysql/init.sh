@@ -8,6 +8,6 @@ mysql -u root -ptoor < /user.sql
 mysql -u root -ptoor < /wordpress.sql
 
 pkill mysqld
-#bash
+
 mysqld --user=root
 

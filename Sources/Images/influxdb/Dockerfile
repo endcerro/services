@@ -6,7 +6,7 @@ RUN apk add	vim
 RUN apk add	bash
 
 COPY ./init.sh .
-COPY ./influxconf .
+
 COPY ./influxdb.conf /etc/influxdb.conf
 
 RUN chmod 777 ./init.sh 

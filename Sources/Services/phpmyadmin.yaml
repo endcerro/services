@@ -1,0 +1,41 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: myphpmyadmin
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: myphpmyadmin
+    tier: mysql
+  ports:
+    - protocol: TCP
+      name: http
+      port: 5000
+      targetPort: 5000
+  
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin-deployment
+spec:
+  selector:
+    matchLabels:
+      app: myphpmyadmin
+      tier: mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myphpmyadmin
+        tier: mysql
+    spec:
+      containers:
+      - name: myphpmyadmin
+        image: myphpmyadmin
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+          name: http

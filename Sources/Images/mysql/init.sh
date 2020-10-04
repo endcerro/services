@@ -5,7 +5,7 @@ mysqld --user=root &
 sleep 5
 
 mysql -u root -ptoor < /user.sql
-mysql -u root -ptoor < /wordpress.sql
+mysql -u root -ptoor < /mysql.sql
 
 pkill mysqld
 

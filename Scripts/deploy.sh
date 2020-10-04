@@ -21,5 +21,5 @@ kubectl apply -f ./Sources/Services/influxdb.yaml
 docker build -t mygrafana ./Sources/Images/grafana/.
 kubectl apply -f ./Sources/Services/grafana.yaml
 
-docker build -t mytelegraf .	/Sources/Images/telegraf/.
+docker build -t mytelegraf ./Sources/Images/telegraf/.
 kubectl apply -f ./Sources/Services/telegraf.yaml

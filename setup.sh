@@ -6,11 +6,11 @@ read var
 if [ "$var" = "VM" ] || [ "$var" = "vm" ]
   then
     echo "Booting K8's in VM mode"
-    bash ./Scripts/init.sh
+    bash ./Scripts/vm_init.sh
 elif [ "$var" = "42" ]
   then
     echo "Booting K8's in 42 mode"
-    bash ./Scripts/macinit.sh
+    bash ./Scripts/mac_init.sh
 else
 	echo "Try again"
 	exit 
@@ -20,4 +20,4 @@ minikube addons enable metallb
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
 ./Scripts/metalip.sh
 kubectl apply -f ./Sources/Services/metallb.yaml
-./Scripts/setup.sh
+./Scripts/deploy.sh

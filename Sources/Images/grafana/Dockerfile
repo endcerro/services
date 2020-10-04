@@ -1,7 +1,6 @@
 FROM alpine
 RUN apk update
 
-RUN apk add	vim
 RUN apk add	bash
 RUN apk add tar
 RUN apk add --no-cache grafana --repository=http://nl.alpinelinux.org/alpine/edge/testing

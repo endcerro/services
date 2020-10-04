@@ -2,7 +2,6 @@ FROM alpine
 RUN apk update
 
 RUN apk add influxdb
-RUN apk add	vim
 RUN apk add	bash
 
 COPY ./init.sh .

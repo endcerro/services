@@ -1,8 +1,6 @@
 FROM alpine
 RUN apk update
-RUN apk add vsftpd
-RUN apk add openssl
-RUN apk add bash
+RUN apk add vsftpd openssl bash
 
 COPY ./vsftpd.conf /etc/vsftpd.conf
 

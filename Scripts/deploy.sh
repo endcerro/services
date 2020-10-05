@@ -3,6 +3,8 @@ eval $(minikube docker-env)
 docker build -t mynginx ./Sources/Images/nginx/.
 kubectl apply -f ./Sources/Services/nginx.yaml
 
+./Scripts/sqlip.sh
+
 docker build -t mysql ./Sources/Images/mysql/.
 kubectl apply -f ./Sources/Services/mysql.yaml
 

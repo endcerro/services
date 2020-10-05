@@ -1,7 +1,7 @@
 FROM alpine
 RUN apk update
 
-RUN apk add vim
+#RUN apk add vim
 RUN apk add bash
 
 RUN apk add --no-cache telegraf --repository=http://nl.alpinelinux.org/alpine/edge/testing

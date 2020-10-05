@@ -5,10 +5,12 @@ read var
 
 if [ "$var" = "VM" ] || [ "$var" = "vm" ]
   then
+  	echo 11 >> ./Scripts/servip.sh
     echo "Booting K8's in VM mode"
     bash ./Scripts/vm_init.sh
 elif [ "$var" = "42" ]
   then
+  	echo 13 >> ./Scripts/servip.sh
     echo "Booting K8's in 42 mode"
     bash ./Scripts/mac_init.sh
 else

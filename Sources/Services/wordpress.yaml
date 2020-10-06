@@ -17,7 +17,7 @@ spec:
 
 ---
 
-apiVersion: apps/v1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: wordpress
@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - image: mywordpress
-        name: wordpress
+        name: mywordpress
         ports:
         - containerPort: 5050
           name: wordpress

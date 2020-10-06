@@ -1,1 +1,1 @@
-kubectl get services | grep wordpress | cat | cut -d " " -f 11
+kubectl get services  | grep wordpress | awk '{print $4}' | grep .

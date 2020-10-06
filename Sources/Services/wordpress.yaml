@@ -1,38 +1,46 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: mywordpress
-  namespace: default
+  name: wordpress
+  labels:
+    app: wordpress
 spec:
-  type: LoadBalancer
-  selector:
-    app: mywordpress
   ports:
-    - protocol: TCP
-      name: http
-      port: 5050
+    - port: 5050
       targetPort: 5050
-  
+      protocol: TCP
+      name: wordpress
+  selector:
+    app: wordpress
+    tier: mysql
+  type: LoadBalancer
+
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordpress-deployment
+  name: wordpress
+  labels:
+    app: wordpress
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: mywordpress
-  replicas: 1
+      app: wordpress
+      tier: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        app: mywordpress
+        app: wordpress
+        tier: mysql
     spec:
       containers:
-      - name: mywordpress
-        image: mywordpress
-        imagePullPolicy: Never
+      - image: mywordpress
+        name: wordpress
         ports:
         - containerPort: 5050
-          name: http
+          name: wordpress
+        imagePullPolicy: IfNotPresent

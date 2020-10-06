@@ -3,10 +3,7 @@ eval $(minikube docker-env)
 docker build -t mynginx ./Sources/Images/nginx/.
 kubectl apply -f ./Sources/Services/nginx.yaml
 
-./Scripts/sqlip.sh
 
-docker build -t mysql ./Sources/Images/mysql/.
-kubectl apply -f ./Sources/Services/mysql.yaml
 
 docker build -t myphpmyadmin ./Sources/Images/phpmyadmin/.
 kubectl apply -f ./Sources/Services/phpmyadmin.yaml
@@ -25,3 +22,9 @@ kubectl apply -f ./Sources/Services/grafana.yaml
 
 docker build -t mytelegraf ./Sources/Images/telegraf/.
 kubectl apply -f ./Sources/Services/telegraf.yaml
+
+
+./Scripts/sqlip.sh
+
+docker build -t mysql ./Sources/Images/mysql/.
+kubectl apply -f ./Sources/Services/mysql.yaml

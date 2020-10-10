@@ -58,8 +58,8 @@ spec:
         app: mysql-app
     spec:
       containers:
-        - name: mysql
-          image: mysql
+        - name: mymysql
+          image: mymysql
           volumeMounts:
             - mountPath: "/var/lib/mysql"
               subPath: "mysql"

@@ -58,8 +58,8 @@ spec:
         app: influxdb-app
     spec:
       containers:
-        - name: myinflux
-          image: myinflux
+        - name: myinfluxdb
+          image: myinfluxdb
           volumeMounts:
             - mountPath: "/var/lib/influxdb"
               subPath: "influxdb"

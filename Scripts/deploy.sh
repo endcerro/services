@@ -1,30 +1,38 @@
+function servip()
+{
+	kubectl get services  | grep $1 | awk '{print $4}' | grep .
+}
+
+function sqlip()
+{
+	ip=$(servip wordpress)
+	cat ./Sources/Images/mysql/mysql.sql > ./Sources/Images/mysql/new.sql
+	echo "(1, 'siteurl', 'http://"$ip":5050', 'yes')," >> ./Sources/Images/mysql/new.sql
+	echo "(2, 'home', 'http://"$ip":5050', 'yes')," >> ./Sources/Images/mysql/new.sql
+	cat ./Sources/Images/mysql/2.sql >> ./Sources/Images/mysql/new.sql
+}
+
+function deploy()
+{
+	docker build -t my$1 ./Sources/Images/$1/.
+	kubectl apply -f ./Sources/Services/$1.yaml
+}
+
+function rdeploy()
+{
+	kubectl delete -f ./Sources/Services/$1.yaml
+	deploy $1
+}
+
 eval $(minikube docker-env)
 
-docker build -t mynginx ./Sources/Images/nginx/.
-kubectl apply -f ./Sources/Services/nginx.yaml
+deploy nginx
+deploy phpmyadmin
+deploy wordpress
+deploy ftps
+deploy influxdb
+deploy grafana
+deploy telegraf
 
-
-
-docker build -t myphpmyadmin ./Sources/Images/phpmyadmin/.
-kubectl apply -f ./Sources/Services/phpmyadmin.yaml
-
-docker build -t mywordpress ./Sources/Images/wordpress/.
-kubectl apply -f ./Sources/Services/wordpress.yaml
-
-docker build -t myftps ./Sources/Images/ftps/.
-kubectl apply -f ./Sources/Services/ftps.yaml
-
-docker build -t myinflux ./Sources/Images/influxdb/.
-kubectl apply -f ./Sources/Services/influxdb.yaml
-
-docker build -t mygrafana ./Sources/Images/grafana/.
-kubectl apply -f ./Sources/Services/grafana.yaml
-
-docker build -t mytelegraf ./Sources/Images/telegraf/.
-kubectl apply -f ./Sources/Services/telegraf.yaml
-
-
-./Scripts/sqlip.sh
-
-docker build -t mysql ./Sources/Images/mysql/.
-kubectl apply -f ./Sources/Services/mysql.yaml
+sqlip
+deploy mysql

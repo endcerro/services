@@ -1,13 +1,43 @@
 #! /bin/bash
 
+function install_kb()
+{
+	sudo rm -rf /usr/local/bin/kubectl
+	sudo rm -rf /usr/local/bin/minikube
+
+	curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+	chmod +x ./kubectl
+	sudo mv ./kubectl /usr/local/bin/kubectl
+	curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+	chmod +x minikube
+	sudo mkdir -p /usr/local/bin/
+	sudo cp minikube /usr/local/bin && rm minikube
+	#sudo install minikube /usr/local/bin/
+}
+
+function install_mtl()
+{
+	kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+	kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+	kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+	kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+	kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+
+}
+
 function vm_init()
 {
-	sudo apt-get update
-	sudo apt-get upgrade -y
-	minikube delete
-	minikube config unset driver
+	sudo usermod -aG sudo $USER
+	sudo apt-get update -y
+	sudo apt-get -y dist-upgrade
+	sudo apt-get install docker.io
+	sudo systemctl start docker
+	sudo systemctl enable docker
+	install_kb
+	#minikube delete
+	#minikube config unset driver
 	sudo chown user42:user42 /var/run/docker.sock
-	minikube start --driver=docker
+
 }
 
 function mac_init()
@@ -62,31 +92,59 @@ function rdeploy()
 	deploy $1
 }
 
+
+
 if [ $(uname) = "Linux" ]
   then
     echo "Booting K8's in VM mode"
     vm_init
+    minikube start --driver=docker --bootstrapper=kubeadm
+    if [[ $? == 0 ]]
+	then
+    	eval $($sudo minikube docker-env)
+		echo -ne "$_GREEN➜$_YELLOW Minikube started\n"
+	else
+		$sudo minikube delete
+    	echo -ne "$_RED➜$_YELLOW Error occured\n"
+    	exit
+	fi
 elif [ $(uname) = "Darwin" ]
   then
     echo "Booting K8's in 42 mode"
     mac_init
 fi
 
+SERVICES="nginx mysql wordpress phpmyadmin ftps influxdb telegraf grafana"
+
 minikube addons enable metallb
-kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
+#kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
+#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+#kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+install_mtl
 metalip
 kubectl apply -f ./Sources/Services/metallb.yaml
 
-eval $(minikube docker-env)
+read a
 
-deploy nginx
-deploy phpmyadmin
-deploy wordpress
-deploy ftps
-deploy influxdb
-deploy grafana
-deploy telegraf
-sqlip
-deploy mysql
+#eval $(minikube docker-env)
+for svc in $SERVICES
+do
+	if [ $svc = "mysql" ]
+	then
+		sqlip
+	fi
+	deploy $svc
+done
+sudo minikube dashboard  &
 
-minikube dashboard
+#deploy nginx
+#deploy phpmyadmin
+#deploy wordpress
+#deploy ftps
+#deploy influxdb
+#deploy grafana
+#deploy telegraf
+#sqlip
+#deploy mysql
+
+#sudo minikube dashboard &

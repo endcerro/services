@@ -1,8 +1,7 @@
 FROM alpine
 RUN apk update
 
-RUN apk add influxdb
-RUN apk add	bash
+RUN apk add influxdb bash
 
 COPY ./init.sh .
 

@@ -126,8 +126,8 @@ CREATE TABLE IF NOT EXISTS `wp_options` (
 --
 
 INSERT INTO `wp_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES
-(1, 'siteurl', 'http://:5050', 'yes'),
-(2, 'home', 'http://:5050', 'yes'),
+(1, 'siteurl', 'http://192.168.49.4:5050', 'yes'),
+(2, 'home', 'http://192.168.49.4:5050', 'yes'),
 
 (3, 'blogname', 'dogelore', 'yes'),
 (4, 'blogdescription', 'Just another WordPress site', 'yes'),

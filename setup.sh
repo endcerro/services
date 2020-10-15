@@ -21,7 +21,7 @@ function install_mtl()
 	kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
 	kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
 	kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
-	kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+	#kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
 }
 
@@ -30,12 +30,16 @@ function vm_init()
 	sudo usermod -aG sudo $USER
 	sudo apt-get update -y
 	sudo apt-get -y dist-upgrade
-	sudo apt-get install docker.io
-	sudo systemctl start docker
-	sudo systemctl enable docker
+	which docker > /dev/null
+	if [[ $? != 0 ]] ; then
+		sudo apt-get install docker.io
+		sudo systemctl start docker
+		sudo systemctl enable docker
+	fi
+#	sudo apt-get install docker.io
+#	sudo systemctl start docker
+#	sudo systemctl enable docker
 	install_kb
-	#minikube delete
-	#minikube config unset driver
 	sudo chown user42:user42 /var/run/docker.sock
 
 }
@@ -98,23 +102,24 @@ if [ $(uname) = "Linux" ]
   then
     echo "Booting K8's in VM mode"
     vm_init
-    minikube start --driver=docker --bootstrapper=kubeadm
-    if [[ $? == 0 ]]
-	then
-    	eval $($sudo minikube docker-env)
-		echo -ne "$_GREEN➜$_YELLOW Minikube started\n"
-	else
-		$sudo minikube delete
-    	echo -ne "$_RED➜$_YELLOW Error occured\n"
-    	exit
-	fi
+   # sudo rm -rf /usr/local/bin/kubectl
+    minikube delete
+    minikube start --driver=docker #--bootstrapper=kubeadm
+    #if [[ $? == 0 ]]
+	#then
+    	#eval $(minikube docker-env)
+	#else
+	#	sudo minikube delete
+    #	echo -ne "$_RED➜$_YELLOW Error occured\n"
+    #	exit
+	#fi
 elif [ $(uname) = "Darwin" ]
   then
     echo "Booting K8's in 42 mode"
     mac_init
 fi
 
-SERVICES="nginx mysql wordpress phpmyadmin ftps influxdb telegraf grafana"
+SERVICES="grafana nginx mysql wordpress phpmyadmin ftps influxdb telegraf"
 
 minikube addons enable metallb
 #kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
@@ -124,18 +129,20 @@ install_mtl
 metalip
 kubectl apply -f ./Sources/Services/metallb.yaml
 
-read a
+#read a
+minikube dashboard &
 
-#eval $(minikube docker-env)
+eval $(minikube docker-env)
 for svc in $SERVICES
 do
 	if [ $svc = "mysql" ]
 	then
 		sqlip
 	fi
+#	read a
 	deploy $svc
 done
-sudo minikube dashboard  &
+#minikube dashboard &
 
 #deploy nginx
 #deploy phpmyadmin

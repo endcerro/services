@@ -29,10 +29,11 @@ eval $(minikube docker-env)
 deploy nginx
 deploy phpmyadmin
 deploy wordpress
-deploy ftps
+sqlip
+deploy mysql
 deploy influxdb
 deploy grafana
 deploy telegraf
-
-sqlip
-deploy mysql
+deploy ftps
+#sqlip
+#deploy mysql

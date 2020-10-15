@@ -1,16 +1,21 @@
 #! /bin/bash
-sudo chown user42:user42 /var/run/docker.sock
-sudo usermod -aG sudo $USER
 sudo apt-get update -y
 sudo apt-get -y dist-upgrade
 
 sudo apt-get autoremove -y
+sudo apt-get install docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+
+sudo chown user42:user42 /var/run/docker.sock
+
+sudo usermod -aG sudo $USER
 
 
 echo "Removing Kubectl and Minikube"
 
-sudo rm -rf /usr/local/bin/kubectl > dev/null
-sudo rm -rf /usr/local/bin/minikube > dev/null
+sudo rm -rf /usr/local/bin/kubectl
+sudo rm -rf /usr/local/bin/minikube
 
 
 echo "Installing Kubectl"

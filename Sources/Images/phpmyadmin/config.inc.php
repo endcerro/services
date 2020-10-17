@@ -35,7 +35,7 @@ $cfg['Servers'][$i]['user'] = 'username';
 $cfg['Servers'][$i]['password'] = 'password';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
-
+$cfg['PmaAbsoluteUri'] = './';
 /**
  * phpMyAdmin configuration storage settings.
  */

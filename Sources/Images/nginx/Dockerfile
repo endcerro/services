@@ -1,7 +1,6 @@
 FROM alpine
 RUN apk update
 RUN apk add nginx
-RUN apk add openssh
 RUN apk add openssl
 
 
@@ -17,6 +16,5 @@ RUN chmod -R 777 /var/log/nginx
 
 EXPOSE 80
 EXPOSE 443
-EXPOSE 22
 
 CMD ["./init.sh"]

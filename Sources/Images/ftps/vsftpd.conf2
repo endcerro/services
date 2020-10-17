@@ -1,14 +1,3 @@
-background=NO
-anonymous_enable=NO
-local_enable=YES
-guest_enable=NO
-write_enable=YES
-local_umask=022
-passwd_chroot_enable=YES
-pasv_enable=YES
-pasv_min_port=20010
-pasv_max_port=20011
-pasv_address=192.168.49.2
 chroot_local_user=YES
 allow_writeable_chroot=YES
 hide_ids=YES

@@ -4,6 +4,8 @@ metadata:
   name: wordpress
   labels:
     app: wordpress
+  annotations:
+    metallb.universe.tf/allow-shared-ip: test
 spec:
   ports:
     - port: 5050

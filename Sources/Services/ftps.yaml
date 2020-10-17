@@ -3,6 +3,8 @@ apiVersion: v1
 metadata:
   name: myftps
   namespace: default
+  annotations:
+    metallb.universe.tf/allow-shared-ip: test
 spec:
   type: LoadBalancer
   selector:

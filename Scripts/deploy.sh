@@ -12,6 +12,14 @@ function sqlip()
 	cat ./Sources/Images/mysql/2.sql >> ./Sources/Images/mysql/new.sql
 }
 
+function ftpsip()
+{
+	ip=$(servip wordpress)
+	cat ./Sources/Images/ftps/vsftpd.conf1 > ./Sources/Images/ftps/vsftpd.conf 
+	echo "pasv_address="$ip"" >> ./Sources/Images/ftps/vsftpd.conf
+	cat ./Sources/Images/ftps/vsftpd.conf2 >> ./Sources/Images/ftps/vsftpd.conf
+}
+
 function deploy()
 {
 	docker build -t my$1 ./Sources/Images/$1/.
@@ -34,6 +42,7 @@ deploy mysql
 deploy influxdb
 deploy grafana
 deploy telegraf
+ftpsip
 deploy ftps
 #sqlip
 #deploy mysql

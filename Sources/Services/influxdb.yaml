@@ -62,7 +62,6 @@ spec:
           image: myinfluxdb
           volumeMounts:
             - mountPath: "/var/lib/influxdb"
-              subPath: "influxdb"
               name: influxdb-data
           imagePullPolicy: Never
           ports:

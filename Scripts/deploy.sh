@@ -34,15 +34,16 @@ function rdeploy()
 
 eval $(minikube docker-env)
 
-deploy nginx
-deploy phpmyadmin
-deploy wordpress
-sqlip
-deploy mysql
 deploy influxdb
 deploy grafana
 deploy telegraf
+deploy phpmyadmin
+deploy wordpress
+deploy nginx
 ftpsip
 deploy ftps
+sqlip
+deploy mysql
+
 #sqlip
 #deploy mysql

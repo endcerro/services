@@ -1,8 +1,7 @@
 FROM alpine
 RUN apk update
 
-RUN apk add	bash
-RUN apk add tar
+RUN apk add tar bash
 RUN apk add --no-cache grafana --repository=http://nl.alpinelinux.org/alpine/edge/testing
 
 COPY ./init.sh .

@@ -50,7 +50,7 @@ spec:
       storage: 2Gi
 ---
 
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ftps-deployment
@@ -58,11 +58,13 @@ spec:
   selector:
     matchLabels:
       app: myftps
-  replicas: 1 # tells deployment to run 2 pods matching the template
+      tier: ftps
+  replicas: 1
   template:
     metadata:
       labels:
         app: myftps
+        tier: ftps
     spec:
       containers:
       - name: myftps

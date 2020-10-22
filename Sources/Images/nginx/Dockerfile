@@ -1,8 +1,6 @@
 FROM alpine
 RUN apk update
-RUN apk add nginx
-RUN apk add openssl
-#RUN apk add bash
+RUN apk add nginx openssl
 
 COPY ./init.sh .
 COPY ./nginx.conf /etc/nginx/.

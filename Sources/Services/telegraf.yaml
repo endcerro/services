@@ -20,14 +20,8 @@ spec:
         imagePullPolicy: IfNotPresent
         name: mytelegraf
         ports:
-        - containerPort: 8125 
-        volumeMounts:
-        - name: telegraf-endpoint
-          mountPath: "/var/run/docker.sock"
-      volumes:
-      - name: telegraf-endpoint
-        hostPath:
-          path: /var/run/docker.sock
+        - containerPort: 8125
+
 
 ---
 

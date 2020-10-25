@@ -1,15 +1,14 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: myphpmyadmin
+  name: phpmyadmin
   namespace: default
   annotations:
     metallb.universe.tf/allow-shared-ip: test
 spec:
   type: LoadBalancer
   selector:
-    app: myphpmyadmin
-    tier: mysql
+    app: phpmyadmin
   ports:
     - protocol: TCP
       name: http
@@ -21,22 +20,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: phpmyadmin-deployment
+  name: phpmyadmin
 spec:
   selector:
     matchLabels:
-      app: myphpmyadmin
-      tier: mysql
+      app: phpmyadmin
   replicas: 1
   template:
     metadata:
       labels:
-        app: myphpmyadmin
-        tier: mysql
+        app: phpmyadmin
     spec:
       containers:
-      - name: myphpmyadmin
-        image: myphpmyadmin
+      - name: phpmyadmin
+        image: phpmyadmin
         imagePullPolicy: Never
         ports:
         - containerPort: 5000

@@ -14,7 +14,6 @@ spec:
       name: wordpress
   selector:
     app: wordpress
-    tier: mysql
   type: LoadBalancer
 
 ---
@@ -30,19 +29,17 @@ spec:
   selector:
     matchLabels:
       app: wordpress
-      tier: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: wordpress
-        tier: mysql
     spec:
       containers:
-      - image: mywordpress
-        name: mywordpress
+      - image: wordpress
+        name: wordpress
         ports:
         - containerPort: 5050
           name: wordpress
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Never

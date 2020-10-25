@@ -22,7 +22,7 @@ function ftpsip()
 
 function deploy()
 {
-	docker build -t my$1 ./Sources/Images/$1/.
+	docker build -t $1 ./Sources/Images/$1/.
 	kubectl apply -f ./Sources/Services/$1.yaml
 }
 
@@ -35,6 +35,9 @@ function rdeploy()
 eval $(minikube docker-env)
 
 
+deploy influxdb
+deploy telegraf
+deploy grafana
 deploy nginx
 deploy wordpress
 deploy phpmyadmin
@@ -42,6 +45,3 @@ sqlip
 deploy mysql
 ftpsip
 deploy ftps
-deploy influxdb
-deploy grafana
-deploy telegraf

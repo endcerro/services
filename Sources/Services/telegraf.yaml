@@ -1,3 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: telegraf
+  labels: 
+    app: telegraf
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8125
+      targetPort: 8125
+  selector:
+    app: telegraf
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,28 +32,12 @@ spec:
     spec:
       serviceAccountName: telegraf
       containers:
-      - image: mytelegraf
-        imagePullPolicy: IfNotPresent
-        name: mytelegraf
+      - image: telegraf
+        name: telegraf
+        imagePullPolicy: Never
         ports:
         - containerPort: 8125
 
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: telegraf
-  labels: 
-    app: telegraf
-spec:
-  type: ClusterIP
-  ports:
-    - port: 8125
-      targetPort: 8125
-  selector:
-    app: telegraf
 
 ---
 

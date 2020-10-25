@@ -7,7 +7,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: grafana-app
+    app: grafana
   ports:
   - port: 3000
     name: grafana
@@ -17,22 +17,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grafana-deployment
+  name: grafana
   labels:
-    app: grafana-app
+    app: grafana
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: grafana-app
+      app: grafana
   template:
     metadata:
       labels:
-        app: grafana-app
+        app: grafana
     spec:
       containers:
-        - name: mygrafana
-          image: mygrafana
+        - name: grafana
+          image: grafana
           imagePullPolicy: Never
           ports:
           - containerPort: 3000

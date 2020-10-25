@@ -10,7 +10,7 @@ spec:
     targetPort: 8086
     protocol: TCP
   selector:
-    app: influxdb-app
+    app: influxdb
 ---
 
 apiVersion: v1
@@ -44,24 +44,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: influxdb-deployment
+  name: influxdb
   labels:
-    app: influxdb-app
+    app: influxdb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: influxdb-app
+      app: influxdb
   template:
     metadata:
       labels:
-        app: influxdb-app
+        app: influxdb
     spec:
       containers:
-        - name: myinfluxdb
-          image: myinfluxdb
+        - name: influxdb
+          image: influxdb
           volumeMounts:
-            - mountPath: "/var/lib/influxdb"
+            - mountPath: "/var/lib/"
               name: influxdb-data
           imagePullPolicy: Never
           ports:

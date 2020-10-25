@@ -1,14 +1,14 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: myftps
+  name: ftps
   namespace: default
   annotations:
     metallb.universe.tf/allow-shared-ip: test
 spec:
   type: LoadBalancer
   selector:
-    app: myftps
+    app: ftps
   ports:
   - port: 20
     name: ftpsa
@@ -18,8 +18,7 @@ spec:
     name: ftpscc
   - port: 20011
     name: ftpscd
-  
-  
+
 ---
 
 apiVersion: v1
@@ -53,22 +52,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ftps-deployment
+  name: ftps
 spec:
   selector:
     matchLabels:
-      app: myftps
-      tier: ftps
+      app: ftps
   replicas: 1
   template:
     metadata:
       labels:
-        app: myftps
-        tier: ftps
+        app: ftps
     spec:
       containers:
-      - name: myftps
-        image: myftps
+      - name: ftps
+        image: ftps
         volumeMounts:
             - mountPath: "/home/"
               subPath: "ftps"

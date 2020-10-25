@@ -34,7 +34,6 @@ function rdeploy()
 
 eval $(minikube docker-env)
 
-
 deploy influxdb
 deploy telegraf
 deploy grafana

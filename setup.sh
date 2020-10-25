@@ -20,7 +20,7 @@ minikube delete
 minikube start --driver=docker
 minikube addons enable metallb
 kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
-./Scripts/metalip.sh
-kubectl apply -f ./Sources/Services/metallb.yaml
+./srcs/Scripts/metalip.sh
+kubectl apply -f ./srcs/Services/metallb.yaml
 minikube dashboard &
-./Scripts/deploy.sh
+./srcs/Scripts/deploy.sh

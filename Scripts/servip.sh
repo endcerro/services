@@ -1,1 +1,0 @@
-kubectl get services  | grep wordpress | awk '{print $4}' | grep .

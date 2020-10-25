@@ -10,7 +10,7 @@ spec:
     targetPort: 3306
     protocol: TCP
   selector:
-    app: mysql-app
+    app: mysql
 ---
 
 apiVersion: v1
@@ -44,24 +44,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
+  name: mysql
   labels:
-    app: mysql-app
+    app: mysql
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql-app
+      app: mysql
   template:
     metadata:
       labels:
-        app: mysql-app
+        app: mysql
     spec:
       containers:
-        - name: mymysql
-          image: mymysql
+        - name: mysql
+          image: mysql
           volumeMounts:
-            - mountPath: "/var/lib/mysql"
+            - mountPath: "/var/lib/"
               subPath: "mysql"
               name: mysql-data
           imagePullPolicy: Never

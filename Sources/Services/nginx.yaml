@@ -1,15 +1,14 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: mynginx
+  name: nginx
   namespace: default
   annotations:
     metallb.universe.tf/allow-shared-ip: test
 spec:
   type: LoadBalancer
   selector:
-    app: mynginx
-    tier: nginx
+    app: nginx
   ports:
     - protocol: TCP
       name: http
@@ -19,31 +18,35 @@ spec:
       name: https
       port: 443
       targetPort: 443
-  
+    - protocol: TCP
+      name: ssh
+      port: 22
+      targetPort: 22
+
 ---
 
-apiVersion: apps/v1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: nginx
 spec:
   selector:
     matchLabels:
-      app: mynginx
-      tier: nginx
+      app: nginx
   replicas: 1
   template:
     metadata:
       labels:
-        app: mynginx
-        tier: nginx
+        app: nginx
     spec:
       containers:
-      - name: mynginx
-        image: mynginx
+      - image: nginx
+        name: nginx
         imagePullPolicy: Never
         ports:
         - containerPort: 80
           name: http
         - containerPort: 443
           name: https
+        - containerPort: 22
+          name: ssh

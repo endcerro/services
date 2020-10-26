@@ -1,0 +1,14 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 41.0M  100 41.0M    0     0  68.2M      0 --:--:-- --:--:-- --:--:-- 68.2M
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 53.3M    0 12663    0     0  65273      0  0:14:17 --:--:--  0:14:17 65273100 53.3M  100 53.3M    0     0  73.1M      0 --:--:-- --:--:-- --:--:-- 73.0M
+! Le profil "minikube" n'existe pas, tentative de suppression quand même.
+* Enabling dashboard ...
+* Verifying dashboard health ...
+* Launching proxy ...
+* Verifying proxy health ...
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

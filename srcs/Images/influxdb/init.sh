@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-bash
 if [[ $(ls /var/lib | grep lock) ]]; 
 then
 	echo "found the lock, not creating" >> /scriptlog

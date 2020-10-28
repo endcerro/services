@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 USER=username
 PASSWORD=password
 adduser -D $USER
@@ -11,4 +11,12 @@ chown $USER:$USER /home/$USER/ftp/test
 echo $USER > /etc/vsftpduserlist.conf
 mkdir /var/run/vsftpd
 mkdir /var/run/vsftpd/empty
+
+
 /usr/sbin/vsftpd /etc/vsftpd.conf
+
+
+while [[ $(pgrep vsftpd) ]]; 
+do 
+	sleep 1 
+done

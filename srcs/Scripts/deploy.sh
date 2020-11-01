@@ -27,7 +27,7 @@ function deploy()
 }
 
 eval $(minikube docker-env)
-
+docker system prune -f
 deploy influxdb
 deploy telegraf
 deploy grafana

@@ -1,4 +1,5 @@
 #! /bin/bash
+service nginx stop
 sudo apt-get update -y
 sudo apt-get -y dist-upgrade
 sudo apt-get autoremove -y
